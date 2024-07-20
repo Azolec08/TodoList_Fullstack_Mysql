@@ -29,7 +29,7 @@ export function BookCard({ data }: dataProps) {
     <div className="w-full h-full flex items-center justify-center">
       <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle className="text-[18px]">{data.title}</CardTitle>
+          <CardTitle className="text-[19px]">{data.title}</CardTitle>
           <CardDescription>{data.desc}</CardDescription>
         </CardHeader>
         <CardContent>
