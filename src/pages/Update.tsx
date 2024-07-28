@@ -31,7 +31,7 @@ export function Update() {
 
   const updateBook = async (data: typeof bookData) => {
     await axios.put(
-      `https://mysql-backend-two.vercel.app/books/` + bookId,
+      `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/books/` + bookId,
       data
     );
   };

@@ -18,7 +18,9 @@ type dataProps = {
 };
 
 const deleteBook = async (id: number) => {
-  await axios.delete(`https://mysql-backend-two.vercel.app/books/` + id);
+  await axios.delete(
+    `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/books/` + id
+  );
 };
 
 export function BookCard({ data }: dataProps) {
@@ -56,73 +58,20 @@ export function BookCard({ data }: dataProps) {
           <span>{Currency(data.price)}</span>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline">
+          <Button
+            variant="outline"
+            className="active:bg-green-500 active:text-white"
+          >
             <Link to={`/update/${data.id}`}>Update</Link>
           </Button>
-          <Button onClick={() => mutation.mutate(data.id)}>Delete</Button>
+          <Button
+            onClick={() => mutation.mutate(data.id)}
+            className="active:bg-green-500 active:text-white"
+          >
+            Delete
+          </Button>
         </CardFooter>
-      </Card>
-    </div>
-  );
-}
-
-// import { Button } from "@/components/ui/button";
-// import {
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardFooter,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card";
-// import { Currency } from "@/lib/currency";
-// import { BooksType } from "@/types";
-// import axios from "axios";
-// import { Link } from "react-router-dom";
-
-// type dataProps = {
-//   data: BooksType;
-// };
-
-// const handleDelete = async (id: number) => {
-//   try {
-//     await axios.delete(`https://mysql-backend-two.vercel.app/books/` + id);
-//     window.location.reload();
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-// export function BookCard({ data }: dataProps) {
-//   return (
-//     <div className="w-full h-full flex items-center justify-center">
-//       <Card className="w-[350px]">
-//         <CardHeader>
-//           <CardTitle className="text-[19px]">{data.title}</CardTitle>
-//           <CardDescription>{data.desc}</CardDescription>
-//         </CardHeader>
-//         <CardContent>
-//           <figure
-//             className={`w-full h-40  ${data.cover == null && "bg-red-200"}`}
-//           >
-//             {data.cover && (
-//               <img
-//                 src={data.cover}
-//                 alt="Cover photo"
-//                 className="w-full h-full"
-//               />
-//             )}
-//           </figure>
-//           <span>{Currency(data.price)}</span>
-//         </CardContent>
-//         <CardFooter className="flex justify-between">
-//           <Button variant="outline">
-//             <Link to={`/update/${data.id}`}>Update</Link>
-//           </Button>
-//           <Button className="" onClick={() => handleDelete(data.id)}>
-//             Delete
-//           </Button>
-//         </CardFooter>
-//         {/* <div className="h-[100px] items-center justify-center flex flex-col w-full grid-cols-2">
+        {/* <div className="h-[100px] items-center justify-center flex flex-col w-full grid-cols-2">
 //           <div>
 //             <span className="font-semibold mr-1">Created Date:</span>
 //             <time>{data.created_at}</time>
@@ -134,7 +83,7 @@ export function BookCard({ data }: dataProps) {
 //             </time>
 //           </div>
 //         </div> */}
-//       </Card>
-//     </div>
-//   );
-// }
+      </Card>
+    </div>
+  );
+}
