@@ -6,13 +6,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-// import { BooksType } from "@/types";
 import { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+interface BookData {
+  title: string;
+  desc: string;
+  price: number | null;
+  cover: string;
+}
 
 export function Add() {
-  const [bookData, setBookData] = useState({
+  const [bookData, setBookData] = useState<BookData>({
     title: "",
     desc: "",
     price: null,
@@ -24,18 +31,23 @@ export function Add() {
   };
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const handleBookDataOnClick = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    e.preventDefault();
-
-    try {
-      axios.post(`https://mysql-backend-two.vercel.app/books`, bookData);
+  const addBookMutation = useMutation({
+    mutationFn: (newBook: BookData) =>
+      axios.post("https://mysql-backend-two.vercel.app/books", newBook),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["books"] }); // Correct usage of invalidateQueries
       navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
+    },
+    onError: (error) => {
+      console.error("Error adding book:", error);
+    },
+  });
+
+  const handleBookDataOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    addBookMutation.mutate(bookData);
   };
 
   return (
@@ -58,7 +70,7 @@ export function Add() {
                 <input
                   type="text"
                   name="desc"
-                  placeholder="dec"
+                  placeholder="desc"
                   className="p-1 border-[2px] border-gray-300"
                   onChange={bookDataHandleChange}
                 />
