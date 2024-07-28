@@ -7,3 +7,10 @@ export type BooksType = {
   created_at: string;
   updated_at: string;
 };
+
+export type BookData = {
+  title: string;
+  desc: string;
+  price: number;
+  cover: string;
+};
