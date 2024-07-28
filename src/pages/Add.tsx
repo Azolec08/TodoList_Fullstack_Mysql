@@ -35,7 +35,10 @@ export function Add() {
 
   const addBookMutation = useMutation({
     mutationFn: (newBook: BookData) =>
-      axios.post("https://mysql-backend-two.vercel.app/books", newBook),
+      axios.post(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/books`,
+        newBook
+      ),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["books"] }); // Correct usage of invalidateQueries
       navigate("/");

@@ -15,7 +15,7 @@ const Books = () => {
     queryKey: ["books"],
     queryFn: async () => {
       const response = await axios.get(
-        "https://mysql-backend-two.vercel.app/books"
+        `${import.meta.env.VITE_REACT_APP_BACKEND_URL}/books`
       );
       return response.data;
     },
