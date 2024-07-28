@@ -35,7 +35,7 @@ export function Update() {
 
     try {
       axios.put(
-        `${process.env.REACT_APP_BACKEND_URL}/books/` + bookId,
+        `https://mysql-backend-two.vercel.app/books/` + bookId,
         bookData
       );
       navigate("/");

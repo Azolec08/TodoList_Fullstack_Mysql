@@ -31,12 +31,13 @@ export function Add() {
     e.preventDefault();
 
     try {
-      axios.post(`${process.env.REACT_APP_BACKEND_URL}/books`, bookData);
+      axios.post(`https://mysql-backend-two.vercel.app/books`, bookData);
       navigate("/");
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <section className="w-full">
       <div className="w-full flex items-center h-[100vh] justify-center">
