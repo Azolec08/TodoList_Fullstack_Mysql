@@ -6,10 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useLocation, useNavigate } from "react-router-dom";
-// import { BooksType } from "@/types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function Update() {
   const [bookData, setBookData] = useState({
@@ -19,29 +19,37 @@ export function Update() {
     cover: "",
   });
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryClient = useQueryClient();
+
+  const bookId = location.pathname.split("/")[2];
+
   const bookDataHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBookData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const navigate = useNavigate();
-  const location = useLocation();
+  const updateBook = async (data: typeof bookData) => {
+    await axios.put(
+      `https://mysql-backend-two.vercel.app/books/` + bookId,
+      data
+    );
+  };
 
-  const bookId = location.pathname.split("/")[2];
-
-  const handleBookDataOnClick = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    e.preventDefault();
-
-    try {
-      axios.put(
-        `https://mysql-backend-two.vercel.app/books/` + bookId,
-        bookData
-      );
+  const mutation = useMutation({
+    mutationFn: updateBook,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["books"] });
       navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
+    },
+    onError: (error: string) => {
+      console.error(error);
+    },
+  });
+
+  const handleBookDataOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    mutation.mutate(bookData);
   };
   return (
     <section className="w-full">
