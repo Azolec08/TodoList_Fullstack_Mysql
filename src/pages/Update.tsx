@@ -34,7 +34,10 @@ export function Update() {
     e.preventDefault();
 
     try {
-      axios.put("http://localhost:8000/books/" + bookId, bookData);
+      axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/books/` + bookId,
+        bookData
+      );
       navigate("/");
     } catch (err) {
       console.log(err);

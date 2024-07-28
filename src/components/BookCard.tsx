@@ -18,7 +18,7 @@ type dataProps = {
 
 const handleDelete = async (id: number) => {
   try {
-    await axios.delete("http://localhost:8000/books/" + id);
+    await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/books/` + id);
     window.location.reload();
   } catch (err) {
     console.log(err);

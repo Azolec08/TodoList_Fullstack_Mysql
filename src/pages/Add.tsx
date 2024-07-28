@@ -31,7 +31,7 @@ export function Add() {
     e.preventDefault();
 
     try {
-      axios.post("http://localhost:8000/books", bookData);
+      axios.post(`${process.env.REACT_APP_BACKEND_URL}/books`, bookData);
       navigate("/");
     } catch (err) {
       console.log(err);

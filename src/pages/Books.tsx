@@ -14,7 +14,9 @@ const Books = () => {
   useEffect(() => {
     async function data() {
       try {
-        const result = await axios.get("http://localhost:8000/books");
+        const result = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/books`
+        );
         setBooks(result.data);
       } catch (err) {
         console.log(err);
