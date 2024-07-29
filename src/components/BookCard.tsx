@@ -71,18 +71,18 @@ export function BookCard({ data }: dataProps) {
             Delete
           </Button>
         </CardFooter>
-        {/* <div className="h-[100px] items-center justify-center flex flex-col w-full grid-cols-2">
-//           <div>
-//             <span className="font-semibold mr-1">Created Date:</span>
-//             <time>{data.created_at}</time>
-//           </div>
-//           <div>
-//             <span className="font-semibold mr-1">Updated Date:</span>
-//             <time className="">
-//                {data.updated_at.slice(0, 16).replace("T", "-")}
-//             </time>
-//           </div>
-//         </div> */}
+        <div className="h-[100px] items-center justify-center flex flex-col w-full grid-cols-2">
+          <div>
+            <span className="font-semibold mr-1">Created Date:</span>
+            {data.updated_at.slice(0, 16).replace("T", "-")}
+          </div>
+          {/* <div>
+            <span className="font-semibold mr-1">Updated Date:</span>
+            <time className="">
+              {data.updated_at.slice(0, 16).replace("T", "-")}
+            </time>
+          </div> */}
+        </div>
       </Card>
     </div>
   );
