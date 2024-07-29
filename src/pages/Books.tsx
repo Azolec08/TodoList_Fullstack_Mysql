@@ -45,7 +45,7 @@ const Books = () => {
 
   return (
     <section>
-      <div className="w-full min-h-[100vh] py-11">
+      <div className="w-full min-h-[100vh] py-10">
         <div className="h-[100px] w-full flex items-center justify-center">
           <input
             type="text"
